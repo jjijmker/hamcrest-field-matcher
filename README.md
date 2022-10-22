@@ -2,7 +2,9 @@
 
 Hamcrest matcher for matching fields of objects of different classes that implement the same interface.
 
-Typical use case is an application with many similar objects that are mapped to each other using, say, MapStruct.
+Typical use case is an application with many similar (but not equal) objects that are mapped to each other using, say, MapStruct.
+
+This matcher will help you validate your mappers.
 
 1. Create a common interface (for example: `ExampleFields`)
 2. Extend AbstractFieldMatcher (for example `ExampleFieldsMatcher`)
