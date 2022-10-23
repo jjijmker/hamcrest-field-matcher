@@ -3,7 +3,7 @@ package nl.ijmker.fieldmatcher;
 import org.junit.jupiter.api.Test;
 
 import static nl.ijmker.fieldmatcher.ExampleFieldsMatcher.hasFieldsOf;
-import static nl.ijmker.fieldmatcher.ExampleFieldsMatcherErrorMatcher.describesMismatch;
+import static nl.ijmker.fieldmatcher.FieldMatcherErrorMatcher.describesMismatch;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 

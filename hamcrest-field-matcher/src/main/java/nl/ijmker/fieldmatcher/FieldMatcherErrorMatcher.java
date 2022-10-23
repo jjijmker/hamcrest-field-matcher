@@ -9,7 +9,7 @@ import org.hamcrest.TypeSafeMatcher;
 
 @Slf4j
 @RequiredArgsConstructor(access = AccessLevel.PRIVATE)
-public class ExampleFieldsMatcherErrorMatcher extends TypeSafeMatcher<String> {
+public class FieldMatcherErrorMatcher extends TypeSafeMatcher<String> {
 
     private final String objectName;
 
@@ -46,8 +46,8 @@ public class ExampleFieldsMatcherErrorMatcher extends TypeSafeMatcher<String> {
 
     }
 
-    public static ExampleFieldsMatcherErrorMatcher describesMismatch(String objectName, String fieldName,
-                                                                     Object expectedValue, Object actualValue) {
-        return new ExampleFieldsMatcherErrorMatcher(objectName, fieldName, expectedValue, actualValue);
+    public static FieldMatcherErrorMatcher describesMismatch(String objectName, String fieldName,
+                                                             Object expectedValue, Object actualValue) {
+        return new FieldMatcherErrorMatcher(objectName, fieldName, expectedValue, actualValue);
     }
 }
