@@ -5,7 +5,7 @@ import lombok.Value;
 
 @Value
 @Builder
-public class ExampleSubObject1 implements ExampleSubFields {
+public class ExampleSubObject2 implements ExampleSubFields {
 
     String subField1;
 

@@ -5,13 +5,11 @@ import lombok.Value;
 
 @Value
 @Builder
-public class ExampleObject1 implements ExampleFields {
+public class ExampleSubObject1 implements ExampleSubFields {
 
-    String field1;
+    String subField1;
 
-    String field2;
+    String subField2;
 
-    String field3;
-
-
+    String subField3;
 }

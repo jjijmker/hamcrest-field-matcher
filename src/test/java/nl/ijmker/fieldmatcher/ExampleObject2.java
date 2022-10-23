@@ -7,7 +7,7 @@ import java.util.Set;
 
 @Value
 @Builder
-public class ExampleObject1 implements ExampleFields {
+public class ExampleObject2 implements ExampleFields {
 
     String field1;
 

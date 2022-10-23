@@ -1,5 +1,6 @@
-package nl.ijmker.bankentitlement.common.hamcrest;
+package nl.ijmker.fieldmatcher;
 
+import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.hamcrest.Description;
@@ -10,30 +11,31 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 @Slf4j
+@Data
 @RequiredArgsConstructor
 public abstract class AbstractFieldMatcher<A> extends TypeSafeMatcher<A> {
 
-    private final A fieldsForComparison;
+    private final A expectedValue;
 
-    private final String[] excludedFieldNames;
+    private final String[] ignoredFieldNames;
 
     private FieldMatcherResult result;
 
     @Override
-    protected boolean matchesSafely(A a) {
+    protected boolean matchesSafely(A actualValue) {
         // Let the subclass list the fields, and how to get values
         FieldMatcherConfigurer<A> configurer = FieldMatcherConfigurer.create();
         configure(configurer);
-        // Create a result
+        // Create actualValue result
         result = FieldMatcherResult.builder()
-                .objectClass(a.getClass())
+                .objectClass(actualValue.getClass())
                 .failures(configurer.getMatchedFields().stream()
                         .map(fieldConfig -> FieldMatcherFailure.builder()
                                 .fieldName(fieldConfig.getFieldName())
-                                .expectedValue(fieldConfig.getValueSupplier().apply(fieldsForComparison))
-                                .actualValue(fieldConfig.getValueSupplier().apply(a))
+                                .expectedValue(fieldConfig.getValueSupplier().apply(expectedValue))
+                                .actualValue(fieldConfig.getValueSupplier().apply(actualValue))
                                 .build())
-                        .filter(this::isNotExcluded)
+                        .filter(this::isNotIgnored)
                         .filter(this::isMatched)
                         .collect(Collectors.toSet()))
                 .build();
@@ -41,8 +43,8 @@ public abstract class AbstractFieldMatcher<A> extends TypeSafeMatcher<A> {
         return result.allFieldsMatch();
     }
 
-    private boolean isNotExcluded(FieldMatcherFailure failure) {
-        return Stream.of(excludedFieldNames)
+    private boolean isNotIgnored(FieldMatcherFailure failure) {
+        return Stream.of(ignoredFieldNames)
                 .noneMatch(excludedFieldName -> failure.getFieldName().equals(excludedFieldName));
     }
 

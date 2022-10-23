@@ -1,12 +1,10 @@
 package nl.ijmker.fieldmatcher;
 
-public interface ExampleFields {
+public interface ExampleSubFields {
 
-    String getField1();
+    String getSubField1();
 
-    String getField2();
+    String getSubField2();
 
-    String getField3();
-
-    Set<? extends ExampleSubFields> getSubFields();
+    String getSubField3();
 }

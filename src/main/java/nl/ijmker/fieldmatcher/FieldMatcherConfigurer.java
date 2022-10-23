@@ -1,4 +1,4 @@
-package nl.ijmker.bankentitlement.common.hamcrest;
+package nl.ijmker.fieldmatcher;
 
 import lombok.AccessLevel;
 import lombok.Getter;
