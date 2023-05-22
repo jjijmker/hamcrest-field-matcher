@@ -3,6 +3,7 @@ package nl.ijmker.fieldmatcher;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hamcrest.Matcher;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -17,10 +18,16 @@ public class FieldMatcherConfigurer<A> {
         return new FieldMatcherConfigurer();
     }
 
-    public FieldMatcherConfigurer<A> addMatchedField(String fieldName, Function<A, Object> valueSupplier) {
+    public FieldMatcherConfigurer<A> addField(String fieldName, Function<A, Object> valueSupplier) {
+        return addField(fieldName, valueSupplier, null);
+    }
+
+    public FieldMatcherConfigurer<A> addField(String fieldName, Function<A, Object> valueSupplier,
+                                              Function<Object, Matcher<Object>> valueMatcher) {
         matchedFields.add((FieldMatcherFieldConfig<A>) FieldMatcherFieldConfig.builder()
                 .fieldName(fieldName)
                 .valueSupplier((Function<Object, Object>) valueSupplier)
+                .valueMatcher(valueMatcher)
                 .build());
         return this;
     }

@@ -1,5 +1,11 @@
 package nl.ijmker.fieldmatcher;
 
+import org.hamcrest.Matcher;
+
+import java.util.function.Function;
+
+import static nl.ijmker.fieldmatcher.ExampleSubFieldsMatcher.hasSubFieldsOf;
+
 public class ExampleFieldsMatcher extends AbstractFieldMatcher<ExampleFields> {
 
     private ExampleFieldsMatcher(ExampleFields fieldsForComparison, String[] ignoredFieldNames) {
@@ -12,9 +18,11 @@ public class ExampleFieldsMatcher extends AbstractFieldMatcher<ExampleFields> {
 
     @Override
     protected void configure(FieldMatcherConfigurer<ExampleFields> configurer) {
+        Function<Object, Matcher<Object>> subFieldsMatcher = subFields -> hasSubFieldsOf(subFields);
         configurer
-                .addMatchedField("field1", exampleFields -> exampleFields.getField1())
-                .addMatchedField("field2", exampleFields -> exampleFields.getField2())
-                .addMatchedField("field3", exampleFields -> exampleFields.getField3());
+                .addField("field1", exampleFields -> exampleFields.getField1())
+                .addField("field2", exampleFields -> exampleFields.getField2())
+                .addField("field3", exampleFields -> exampleFields.getField3())
+                .addField("subFields", exampleFields -> exampleFields.getSubFields(), subFieldsMatcher);
     }
 }

@@ -2,6 +2,8 @@ package nl.ijmker.fieldmatcher;
 
 import org.junit.jupiter.api.Test;
 
+import java.util.List;
+
 import static nl.ijmker.fieldmatcher.ExampleFieldsMatcher.hasFieldsOf;
 import static nl.ijmker.fieldmatcher.FieldMatcherErrorMatcher.describesMismatch;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -10,17 +12,39 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 public class ExampleFieldsMatcherTest {
 
     @Test
-    void matchingObjects() {
+    void testNoMismatches() {
         // Given
         ExampleObject1 actual = ExampleObject1.builder()
                 .field1("field1")
                 .field2("field2")
-                .field3("field4")
+                .field3("field3")
+                .subFields(List.of(
+                        ExampleSubObject1.builder()
+                                .subField1("subField1")
+                                .subField2("subField2")
+                                .subField3("subField3")
+                                .build(),
+                        ExampleSubObject1.builder()
+                                .subField1("subField4")
+                                .subField2("subField5")
+                                .subField3("subField6")
+                                .build()))
                 .build();
         ExampleObject2 expected = ExampleObject2.builder()
                 .field1("field1")
                 .field2("field2")
-                .field3("field4")
+                .field3("field3")
+                .subFields(List.of(
+                        ExampleSubObject2.builder()
+                                .subField1("subField4")
+                                .subField2("subField5")
+                                .subField3("subField6")
+                                .build(),
+                        ExampleSubObject2.builder()
+                                .subField1("subField1")
+                                .subField2("subField2")
+                                .subField3("subField3")
+                                .build()))
                 .build();
         // When
         assertThat(actual, hasFieldsOf(expected));
@@ -29,17 +53,17 @@ public class ExampleFieldsMatcherTest {
     }
 
     @Test
-    void field1Mismatch() {
+    void testMismatchInField1() {
         // Given
         ExampleObject1 actual = ExampleObject1.builder()
                 .field1("field1")
                 .field2("field2")
-                .field3("field4")
+                .field3("field3")
                 .build();
         ExampleObject2 expected = ExampleObject2.builder()
                 .field1("field11")
                 .field2("field2")
-                .field3("field4")
+                .field3("field3")
                 .build();
         // When
         AssertionError assertionError = assertThrows(AssertionError.class, () -> {
@@ -52,17 +76,17 @@ public class ExampleFieldsMatcherTest {
     }
 
     @Test
-    void field1And2Mismatch() {
+    void testMismatchInField1AndField2() {
         // Given
         ExampleObject1 actual = ExampleObject1.builder()
                 .field1("field1")
                 .field2("field2")
-                .field3("field4")
+                .field3("field3")
                 .build();
         ExampleObject2 expected = ExampleObject2.builder()
                 .field1("field11")
                 .field2("field22")
-                .field3("field4")
+                .field3("field3")
                 .build();
         // When
         AssertionError assertionError = assertThrows(AssertionError.class, () -> {
@@ -77,7 +101,7 @@ public class ExampleFieldsMatcherTest {
     }
 
     @Test
-    void field1MismatchExcluded() {
+    void testMismatchInField1ButField1IsExcluded() {
         // Given
         ExampleObject1 actual = ExampleObject1.builder()
                 .field1("field1")

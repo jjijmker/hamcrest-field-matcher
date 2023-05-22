@@ -1,6 +1,6 @@
 package nl.ijmker.fieldmatcher;
 
-import java.util.Set;
+import java.util.List;
 
 public interface ExampleFields {
 
@@ -10,5 +10,5 @@ public interface ExampleFields {
 
     String getField3();
 
-    Set<? extends ExampleSubFields> getSubFields();
+    List<? extends ExampleSubFields> getSubFields();
 }
