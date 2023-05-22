@@ -99,11 +99,10 @@ public class ExampleFieldsMatcher extends AbstractFieldMatcher<ExampleFields> {
     @Override
     protected void configure(FieldMatcherConfigurer<ExampleFields> configurer) {
         configurer
-                .addMatchedField("subFields",
-                        exampleFields -> exampleFields.getSubFields()
-                                .stream()
-                                .map(ExampleSubFields::getSubField1)
-                                .collect(Collectors.toSet()));
+            .addMatchedField("subFields", exampleFields -> exampleFields.getSubFields()
+                .stream()
+                .map(ExampleSubFields::getSubField1)
+                .collect(Collectors.toSet()));
     }
 }
 ```

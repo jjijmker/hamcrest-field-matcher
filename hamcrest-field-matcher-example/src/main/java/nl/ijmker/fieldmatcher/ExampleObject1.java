@@ -3,7 +3,7 @@ package nl.ijmker.fieldmatcher;
 import lombok.Builder;
 import lombok.Value;
 
-import java.util.Set;
+import java.util.List;
 
 @Value
 @Builder
@@ -15,5 +15,5 @@ public class ExampleObject1 implements ExampleFields {
 
     String field3;
 
-    Set<ExampleSubObject1> subFields;
+    List<ExampleSubObject1> subFields;
 }

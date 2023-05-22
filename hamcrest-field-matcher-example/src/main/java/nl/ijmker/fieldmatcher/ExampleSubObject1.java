@@ -1,6 +1,7 @@
 package nl.ijmker.fieldmatcher;
 
 import lombok.Builder;
+import lombok.EqualsAndHashCode;
 import lombok.Value;
 
 @Value
