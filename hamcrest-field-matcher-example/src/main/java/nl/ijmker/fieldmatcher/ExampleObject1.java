@@ -2,6 +2,8 @@ package nl.ijmker.fieldmatcher;
 
 import lombok.Builder;
 import lombok.Value;
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
 
 import java.util.List;
 
@@ -16,4 +18,9 @@ public class ExampleObject1 implements ExampleFields {
     String field3;
 
     List<ExampleSubObject1> subFields;
+
+    @Override
+    public String toString() {
+        return ToStringBuilder.reflectionToString(this, ToStringStyle.MULTI_LINE_STYLE);
+    }
 }

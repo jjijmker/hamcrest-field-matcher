@@ -1,5 +1,6 @@
 package nl.ijmker.fieldmatcher;
 
+import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
@@ -9,6 +10,7 @@ import static nl.ijmker.fieldmatcher.FieldMatcherErrorMatcher.describesMismatch;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+@Slf4j
 public class ExampleFieldsMatcherTest {
 
     @Test
@@ -30,6 +32,7 @@ public class ExampleFieldsMatcherTest {
                                 .subField3("subField6")
                                 .build()))
                 .build();
+        log.info("actual={}", actual);
         ExampleObject2 expected = ExampleObject2.builder()
                 .field1("field1")
                 .field2("field2")
@@ -46,6 +49,7 @@ public class ExampleFieldsMatcherTest {
                                 .subField3("subField3")
                                 .build()))
                 .build();
+        log.info("expected={}", expected);
         // When
         assertThat(actual, hasFieldsOf(expected));
         // Then

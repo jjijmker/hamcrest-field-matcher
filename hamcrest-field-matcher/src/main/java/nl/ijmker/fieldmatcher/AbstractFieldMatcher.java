@@ -1,5 +1,6 @@
 package nl.ijmker.fieldmatcher;
 
+import lombok.AccessLevel;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -78,8 +79,6 @@ public abstract class AbstractFieldMatcher<A> extends TypeSafeMatcher<A> {
                 return false;
             } else if (valueMatcher != null) {
                 // (2b) ... TODO
-                log.info("KLAAS1={}", expectedCollection);
-                log.info("KLAAS2={}", actualCollection);
                 Set<Matcher<Object>> itemMatchers = expectedCollection.stream()
                         .map(expectedItem -> valueMatcher.apply(expectedItem))
                         .collect(Collectors.toSet());
@@ -111,4 +110,25 @@ public abstract class AbstractFieldMatcher<A> extends TypeSafeMatcher<A> {
     }
 
     protected abstract void configure(FieldMatcherConfigurer<A> configurer);
+
+    public TypeSafeMatcher<Object> toObjectMatcher() {
+        return new ObjectMatcher(this);
+    }
+
+    @RequiredArgsConstructor(access = AccessLevel.PRIVATE)
+    public class ObjectMatcher extends TypeSafeMatcher<Object> {
+
+        private final TypeSafeMatcher matcher;
+
+
+        @Override
+        public void describeTo(Description description) {
+            matcher.describeTo(description);
+        }
+
+        @Override
+        protected boolean matchesSafely(Object o) {
+            return matcher.matches(o);
+        }
+    }
 }

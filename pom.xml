@@ -6,7 +6,7 @@
 
     <groupId>nl.ijmker.fieldmatcher</groupId>
     <artifactId>hamcrest-field-matcher-parent</artifactId>
-    <version>0.2-SNAPSHOT</version>
+    <version>0.3-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <properties>

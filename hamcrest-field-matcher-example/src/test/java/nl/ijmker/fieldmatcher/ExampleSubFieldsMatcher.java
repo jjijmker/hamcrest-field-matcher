@@ -1,8 +1,5 @@
 package nl.ijmker.fieldmatcher;
 
-import lombok.AccessLevel;
-import lombok.RequiredArgsConstructor;
-import org.hamcrest.Description;
 import org.hamcrest.TypeSafeMatcher;
 
 public class ExampleSubFieldsMatcher extends AbstractFieldMatcher<ExampleSubFields> {
@@ -16,8 +13,8 @@ public class ExampleSubFieldsMatcher extends AbstractFieldMatcher<ExampleSubFiel
         return new ExampleSubFieldsMatcher(fieldsForComparison, ignoredFieldNames);
     }
 
-    public static ObjectMatcher hasSubFieldsOf(Object object,
-                                               String... ignoredFieldNames) {
+    public static TypeSafeMatcher<Object> hasSubFieldsOf(Object object,
+                                                         String... ignoredFieldNames) {
         if (object instanceof ExampleSubFields) {
             return hasSubFieldsOf((ExampleSubFields) object, ignoredFieldNames).toObjectMatcher();
         } else {
@@ -31,29 +28,5 @@ public class ExampleSubFieldsMatcher extends AbstractFieldMatcher<ExampleSubFiel
                 .addField("subField1", subFields -> subFields.getSubField1())
                 .addField("subField2", subFields -> subFields.getSubField2())
                 .addField("subField3", subFields -> subFields.getSubField3());
-    }
-
-    public ObjectMatcher toObjectMatcher() {
-        return new ObjectMatcher(this);
-    }
-
-    @RequiredArgsConstructor(access = AccessLevel.PRIVATE)
-    public class ObjectMatcher extends TypeSafeMatcher<Object> {
-
-        private final ExampleSubFieldsMatcher matcher;
-
-        @Override
-        protected boolean matchesSafely(Object object) {
-            if (object instanceof ExampleSubFields) {
-                return matcher.matchesSafely((ExampleSubFields) object);
-            } else {
-                return false;
-            }
-        }
-
-        @Override
-        public void describeTo(Description description) {
-            matcher.describeTo(description);
-        }
     }
 }
